@@ -1,0 +1,7 @@
+page_admin:
+  prefix: /admin/user
+  resource: '@UserBundle/Resources/config/routes/admin.yaml'
+
+page_forntend:
+  prefix: /user
+  resource: '@UserBundle/Resources/config/routes/frontend.yaml'

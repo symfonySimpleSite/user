@@ -1,0 +1,19 @@
+user_login:
+  path: /login
+  controller: 'SymfonySimpleSite\User\Controller\SecurityController::login'
+
+user_logout:
+  path: /logout
+  controller: 'SymfonySimpleSite\User\Controller\SecurityController::logout'
+
+user_registration:
+  path: /registration
+  controller: 'SymfonySimpleSite\User\Controller\RegistrationController::register'
+
+user_verify_email:
+  path: /verify/email
+  controller: 'SymfonySimpleSite\User\Controller\RegistrationController::verifyUserEmail'
+
+user_index:
+  path: /
+  controller: 'SymfonySimpleSite\User\Controller\UserController::index'

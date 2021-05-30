@@ -1,0 +1,3 @@
+admin_user_index:
+  path: /
+  controller: 'SymfonySimpleSite\User\Controller\AdminController::index'

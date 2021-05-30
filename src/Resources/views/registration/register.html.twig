@@ -1,0 +1,42 @@
+{% extends template %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+    {{ form_start(registrationForm) }}
+    <table border="1" width="50%">
+        <tr>
+            <td>{{ form_label(registrationForm.email) }}</td>
+            <td>{{ form_widget(registrationForm.email) }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form_label(registrationForm.plainPassword.first) }}</td>
+            <td>{{ form_widget(registrationForm.plainPassword.first) }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form_label(registrationForm.plainPassword.second) }}</td>
+            <td> {{ form_widget(registrationForm.plainPassword.second) }}</td>
+        </tr>
+        {% if registrationForm.plainPassword.vars.valid == false %}
+        <tr>
+            <td colspan="2">
+                {{ form_errors(registrationForm.plainPassword.first) }}
+            </td>
+        </tr>
+        {% endif %}
+        <tr>
+            <td colspan="2">
+                {{ form_widget(registrationForm.agreeTerms) }}
+                {{ form_label(registrationForm.agreeTerms) }}
+            </td>
+        </tr>
+    </table>
+   <br>
+    <button type="submit">Registration</button>
+    {{ form_end(registrationForm) }}
+
+
+{% endblock %}
