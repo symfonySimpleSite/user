@@ -1,0 +1,6 @@
+{% if app.user is not empty %}
+    <a class="btn btn-sm btn-outline-secondary" href="{{ path('user_logout') }}">Logout</a>
+{% else %}
+    <a class="btn btn-sm btn-outline-secondary" href="{{ path('user_login') }}">Login</a>
+    <a class="btn btn-sm btn-outline-secondary" href="{{ path('user_registration') }}">Registration</a>
+{% endif %}

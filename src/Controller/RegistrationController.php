@@ -2,7 +2,11 @@
 
 namespace SymfonySimpleSite\User\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use SymfonySimpleSite\Common\Interfaces\StatusInterface;
+use SymfonySimpleSite\Page\Service\GetTemplateService;
 use SymfonySimpleSite\User\Entity\User;
 use SymfonySimpleSite\User\Form\RegistrationFormType;
 use SymfonySimpleSite\User\Security\EmailVerifier;
@@ -17,14 +21,13 @@ use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 class RegistrationController extends UserAbstractController
 {
-    private EmailVerifier $emailVerifier;
-
-    public function __construct(EmailVerifier $emailVerifier)
-    {
-        $this->emailVerifier = $emailVerifier;
-    }
-
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, SymfonySimpleSieAuthenticator $authenticator): Response
+    public function register(
+        Request $request,
+        UserPasswordEncoderInterface $passwordEncoder,
+        GuardAuthenticatorHandler $guardHandler,
+        SymfonySimpleSieAuthenticator $authenticator,
+        EmailVerifier $emailVerifier
+    ): Response
     {
         $user = new User();
         $user->setCreatedAt(new \DateTime('now'));
@@ -45,7 +48,7 @@ class RegistrationController extends UserAbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            $this->emailVerifier->sendEmailConfirmation('user_verify_email', $user,
+            $emailVerifier->sendEmailConfirmation('user_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address('test@user.com', 'Mail Bot'))
                     ->to($user->getEmail())
